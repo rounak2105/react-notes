@@ -1,0 +1,90 @@
+.centered-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+.bottom-centered-div {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .top-centered-div1 {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .top-centered-div2 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .top-centered-div3 {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-height: 100px;
+  }
+
+  .top-centered-div4 {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-height: 100px;
+    text-align: end;
+  }
+
+  .centered-div-notes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+  }
+
+  .delete-note {
+    position:static;
+    left: 100%;
+  }
+
+  .fixed-size-textarea {
+    width: 300px; /* Set the desired width */
+    height: 200px; /* Set the desired height */
+    resize: none; /* Prevent resizing by users */
+  }
+
+  .note-item {
+    max-height: 200px; /* Set the maximum height of each list item */
+    overflow: scroll; /* Hide overflow content */
+  }
+
+  .note-item::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit (Chrome, Safari, etc.) */
+  }
+  
+  /* Optional: Hide scrollbar for Firefox */
+  .note-item {
+    scrollbar-width: none;
+  }
+
+  .li-note-item {
+    margin: 5px;
+  }
+  
+  .flashid-p {
+    display: inline;
+    color: red;
+    font-weight: bold;
+  }
+  
