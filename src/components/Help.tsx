@@ -1,6 +1,6 @@
 import type React from "react"
 import Footer from "./Footer"
-import flashLogo from "./assets/flash.svg"
+import flashLogo from "../assets/flash.svg"
 
 const Help: React.FC = () => {
   return (

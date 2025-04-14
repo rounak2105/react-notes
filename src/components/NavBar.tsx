@@ -1,5 +1,5 @@
 import React from "react";
-import flashLogo from "./assets/flash.svg"
+import flashLogo from "../assets/flash.svg"
 
 type NavBarProps = {
   onBrandClick: () => void;

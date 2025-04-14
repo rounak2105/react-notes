@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
 import { createPost, fetchPosts, lockNote, unlockNote, deleteNote } from "./Communication";
-import flashLogo from "./assets/flash.svg"
-import deleteLogo from "./assets/delete.svg"
-import lockLogo from "./assets/lock.svg"
+import flashLogo from "../assets/flash.svg"
+import deleteLogo from "../assets/delete.svg"
+import lockLogo from "../assets/lock.svg"
 
 
 const Notes = (props: any) => {

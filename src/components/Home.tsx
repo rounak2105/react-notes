@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Quote from "./Quote";
-import flashLogo from "./assets/flash.svg"
+import flashLogo from "../assets/flash.svg"
 
 interface InputComponentProps {
   onSubmit: (value: string) => void;
