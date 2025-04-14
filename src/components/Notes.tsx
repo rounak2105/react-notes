@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
-import { createPost, fetchPosts } from "./Communication";
+import { createPost, fetchPosts, lockNote, unlockNote } from "./Communication";
 
 const Notes = (props: any) => {
   const [inputValue, setInputValue] = useState("");
@@ -48,7 +48,12 @@ const Notes = (props: any) => {
       }, 500);
     }
     try {
-      const postData = await fetchPosts(props.value);
+      let postData = null;
+      if((lockPassword == null) || (lockPassword == "")) {
+        postData = await fetchPosts(props.value); 
+      } else {
+        postData = await unlockNote(props.value, lockPassword);
+      }
       setNotesList(postData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -61,11 +66,21 @@ const Notes = (props: any) => {
   };
 
   // Handle Done button in the modal
-  const handleLockDone = () => {
-    console.log("Locking note id", props.value, "with password:", lockPassword);
-    // Dummy API call can be made here
-    setShowLockModal(false);
-    setLockPassword("");
+  const handleLockDone = async () => {
+    try {
+      const result = await lockNote(props.value, lockPassword);
+      console.log("Lock API result:", result);
+      if (result.success) {
+        setShowLockModal(false);
+        setLockPassword(lockPassword);
+        await fetchDataFromServer();
+      } else {
+        alert("Failed to lock note");
+      }
+    } catch (error) {
+      console.error("Error locking note:", error);
+      alert("Error occurred while locking note");
+    }
   };
 
   return (
