@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
-import { createPost, fetchPosts, lockNote, unlockNote } from "./Communication";
+import { createPost, fetchPosts, lockNote, unlockNote, deleteNote } from "./Communication";
 
 const Notes = (props: any) => {
   const [inputValue, setInputValue] = useState("");
@@ -9,6 +9,8 @@ const Notes = (props: any) => {
   >([]);
   const [showLockModal, setShowLockModal] = useState(false);
   const [lockPassword, setLockPassword] = useState("");
+  const [showInitialUnlockModal, setShowInitialUnlockModal] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   const handleChange = (e: any) => {
     setInputValue(e.target.value);
@@ -18,6 +20,10 @@ const Notes = (props: any) => {
     const fetchData = async () => {
       try {
         const postData = await fetchPosts(props.value);
+        // Check if the note is locked
+        if (postData && postData.length > 0 && postData[0].locked) {
+          setShowInitialUnlockModal(true);
+        }
         setNotesList((notes) => [...notes, ...postData]);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -79,30 +85,86 @@ const Notes = (props: any) => {
       }
     } catch (error) {
       console.error("Error locking note:", error);
-      alert("Error occurred while locking note");
+    }
+  };
+
+  // Handle Done button in the initial unlock modal
+  const handleInitialUnlockDone = async () => {
+    try {
+      const result = await unlockNote(props.value, lockPassword);
+      if (result) {
+        setShowInitialUnlockModal(false);
+        setLockPassword(lockPassword);
+        setPasswordError("");
+        await fetchDataFromServer();
+      } else {
+        setPasswordError("Incorrect password");
+      }
+    } catch (error) {
+      console.error("Error unlocking note:", error);
+      setPasswordError("Incorrect Password :(");
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const result = await deleteNote(props.value);
+      if (result.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error deleting note:", error);
     }
   };
 
   return (
     <div>
       {/* Lock Section */}
-      <div className="lock-top text-center mb-3" onClick={handleLockClick} style={{ cursor: "pointer" }}>
-        <img
-          src="/src/assets/lock.svg"
-          alt="Lock"
-          width="40"
-          height="30"
-          className="d-inline-block align-text-top"
-        />
-        <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey" }}>
-          Lock the Note!
-        </p>
+      <div className="lock-top text-center mb-3">
+        {notesList.length > 0 && notesList[0].locked ? (
+          <span 
+            className="badge badge-primary badge-pill" 
+            onClick={handleDelete}
+            style={{ cursor: "pointer" }}
+          >
+            <img
+              src="/src/assets/delete.svg"
+              alt="Delete"
+              width="30"
+              height="24"
+              className="d-inline-block align-text-top"
+            />
+          </span>
+        ) : (
+          <div onClick={handleLockClick} style={{ cursor: "pointer" }}>
+            <img
+              src="/src/assets/lock.svg"
+              alt="Lock"
+              width="40"
+              height="30"
+              className="d-inline-block align-text-top"
+            />
+            <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey" }}>
+              Lock the Note!
+            </p>
+          </div>
+        )}
       </div>
 
-      {/* Modal for entering password */}
+      {/* Lock Modal */}
       {showLockModal && (
         <div className="modal-overlay">
           <div className="modal-content">
+            <div className="d-flex justify-content-end mb-2">
+              <button 
+                className="btn-close" 
+                onClick={() => {
+                  setShowLockModal(false);
+                  setLockPassword("");
+                }}
+                aria-label="Close"
+              />
+            </div>
             <div className="d-flex flex-column align-items-center">
               <div className="modal-icon-wrapper mb-3">
                 <img
@@ -112,7 +174,7 @@ const Notes = (props: any) => {
                   height="24"
                 />
               </div>
-              <h5 className="modal-title">Lock <p className="flashid-p">{props.value}</p></h5>
+              <h5 className="modal-title">Lock <span className="flashid-p">{props.value}</span></h5>
             </div>
             <div className="modal-body mt-4">
               <input
@@ -126,6 +188,60 @@ const Notes = (props: any) => {
               <button 
                 className="btn btn-success w-100 py-2"
                 onClick={handleLockDone}
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Initial Unlock Modal */}
+      {showInitialUnlockModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="d-flex justify-content-end mb-2">
+              <button 
+                className="btn-close" 
+                onClick={() => {
+                  setShowInitialUnlockModal(false);
+                  setPasswordError("");
+                  window.location.reload(); // This will refresh the page
+                }}
+                aria-label="Close"
+              />
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <div className="modal-icon-wrapper mb-3">
+                <img
+                  src="/src/assets/lock.svg"
+                  alt="Lock"
+                  width="24"
+                  height="24"
+                />
+              </div>
+              <h5 className="modal-title">Unlock <span className="flashid-p">{props.value}</span></h5>
+            </div>
+            <div className="modal-body mt-4">
+              <input
+                type="password"
+                value={lockPassword}
+                onChange={(e) => {
+                  setLockPassword(e.target.value);
+                  setPasswordError("");
+                }}
+                className={`form-control form-control-lg mb-2 ${passwordError ? 'is-invalid' : ''}`}
+                placeholder="Enter your password"
+                autoFocus
+              />
+              {passwordError && (
+                <div className="text-danger mb-3 small">
+                  {passwordError}
+                </div>
+              )}
+              <button 
+                className="btn btn-success w-100 py-2"
+                onClick={handleInitialUnlockDone}
               >
                 Done
               </button>

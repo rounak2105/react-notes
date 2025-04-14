@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <NavBar onBrandClick={() => handleNavigation("home")} onNavigate={handleNavigation} />
-      <div className="flex-grow-1">
+      <div className="flex-grow-1 overflow-auto" style={{ paddingBottom: "100px" }}>
         {currentPage === "home" && <Home onSubmit={handleSubmit} />}
         {currentPage === "notes" && <Notes value={inputValue} />}
         {currentPage === "about" && <AboutUs />}
