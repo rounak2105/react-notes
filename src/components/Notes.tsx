@@ -177,7 +177,7 @@ const Notes = (props: any) => {
                   height="24"
                 />
               </div>
-              <h5 className="modal-title">Lock <span className="flashid-p">{props.value}</span></h5>
+              <p className="modal-title">Lock <span className="flashid-p">{props.value}</span></p>
             </div>
             <div className="modal-body mt-4">
               <input
@@ -189,7 +189,7 @@ const Notes = (props: any) => {
                 autoFocus
               />
               <button 
-                className="btn btn-success w-100 py-2"
+                className="btn btn-outline-success w-100 py-2"
                 onClick={handleLockDone}
               >
                 Done
@@ -223,7 +223,7 @@ const Notes = (props: any) => {
                   height="24"
                 />
               </div>
-              <h5 className="modal-title">Unlock <span className="flashid-p">{props.value}</span></h5>
+              <p className="modal-title">Unlock <span className="flashid-p">{props.value}</span></p>
             </div>
             <div className="modal-body mt-4">
               <input
@@ -243,7 +243,7 @@ const Notes = (props: any) => {
                 </div>
               )}
               <button 
-                className="btn btn-success w-100 py-2"
+                className="btn btn-outline-success w-100 py-2"
                 onClick={handleInitialUnlockDone}
               >
                 Done
