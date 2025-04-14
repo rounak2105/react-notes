@@ -134,6 +134,9 @@ const Notes = (props: any) => {
               height="24"
               className="d-inline-block align-text-top"
             />
+            <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey", padding: "5px" }}>
+              Delete the Note Forever!
+            </p>
           </span>
         ) : (
           <div onClick={handleLockClick} style={{ cursor: "pointer" }}>
