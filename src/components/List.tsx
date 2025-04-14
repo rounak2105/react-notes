@@ -2,7 +2,7 @@ import React from "react";
 
 const List = (props: any) => {
   const items = props.value.filter(
-    (item: any) => item.note.trim() !== ""
+    (item: any) => !item.note || item.note.trim() !== ""
   ).reverse();
   return (
     <ul className="list-group">
