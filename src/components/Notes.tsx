@@ -4,13 +4,15 @@ import { createPost, fetchPosts } from "./Communication";
 
 const Notes = (props: any) => {
   const [inputValue, setInputValue] = useState("");
+  const [notesList, setNotesList] = useState<
+    Array<{ _id: string; uid: string; note: string }>
+  >([]);
+  const [showLockModal, setShowLockModal] = useState(false);
+  const [lockPassword, setLockPassword] = useState("");
+
   const handleChange = (e: any) => {
     setInputValue(e.target.value);
   };
-
-  // Initialize empty notes list
-  var initialNotes: Array<{ _id: string; uid: string; note: string }> = [];
-  const [notesList, setNotesList] = useState(initialNotes);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,10 +55,23 @@ const Notes = (props: any) => {
     }
   };
 
+  // When Lock section is clicked, show the modal
+  const handleLockClick = () => {
+    setShowLockModal(true);
+  };
+
+  // Handle Done button in the modal
+  const handleLockDone = () => {
+    console.log("Locking note id", props.value, "with password:", lockPassword);
+    // Dummy API call can be made here
+    setShowLockModal(false);
+    setLockPassword("");
+  };
+
   return (
     <div>
-      {/* New Lock Section at top center */}
-      <div className="lock-top text-center mb-3">
+      {/* Lock Section */}
+      <div className="lock-top text-center mb-3" onClick={handleLockClick} style={{ cursor: "pointer" }}>
         <img
           src="/src/assets/lock.svg"
           alt="Lock"
@@ -69,7 +84,42 @@ const Notes = (props: any) => {
         </p>
       </div>
 
-      {/* Existing Header Section (unchanged) */}
+      {/* Modal for entering password */}
+      {showLockModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="d-flex flex-column align-items-center">
+              <div className="modal-icon-wrapper mb-3">
+                <img
+                  src="/src/assets/lock.svg"
+                  alt="Lock"
+                  width="24"
+                  height="24"
+                />
+              </div>
+              <h5 className="modal-title">Lock <p className="flashid-p">{props.value}</p></h5>
+            </div>
+            <div className="modal-body mt-4">
+              <input
+                type="password"
+                value={lockPassword}
+                onChange={(e) => setLockPassword(e.target.value)}
+                className="form-control form-control-lg mb-4"
+                placeholder="Enter your password"
+                autoFocus
+              />
+              <button 
+                className="btn btn-success w-100 py-2"
+                onClick={handleLockDone}
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Existing Header Section */}
       <div className="top-centered-div4">
         Your
         <img
@@ -80,13 +130,13 @@ const Notes = (props: any) => {
           height="30"
           className="d-inline-block align-text-top"
           onClick={fetchDataFromServer}
-        ></img>
+        />
         Id is <p className="flashid-p">{props.value}</p>
         <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey" }}>
           To refresh, click the flash icon!
         </p>
       </div>
-
+      
       {/* Notes Input Section */}
       <div className="mb-3 top-centered-div3">
         <div className="input-group">
