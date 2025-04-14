@@ -5,7 +5,7 @@ import { createPost, fetchPosts, lockNote, unlockNote, deleteNote } from "./Comm
 const Notes = (props: any) => {
   const [inputValue, setInputValue] = useState("");
   const [notesList, setNotesList] = useState<
-    Array<{ _id: string; uid: string; note: string }>
+    Array<{ _id: string; uid: string; note: string; locked: boolean }>
   >([]);
   const [showLockModal, setShowLockModal] = useState(false);
   const [lockPassword, setLockPassword] = useState("");
@@ -38,6 +38,7 @@ const Notes = (props: any) => {
       _id: notesList.length + 1 + "",
       uid: props.value,
       note: inputValue,
+      locked: lockPassword ? true : false,
     };
     createPost(newItem);
     setNotesList([...notesList, newItem]);
