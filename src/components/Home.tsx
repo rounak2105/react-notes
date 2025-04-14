@@ -35,7 +35,7 @@ const Home: React.FC<InputComponentProps> = ({ onSubmit }) => {
           <p>
             Write your Notes in a{" "}
             <img
-              src="src/assets/flash.svg"
+              src={flashLogo}
               alt="Logo"
               width="30"
               height="24"
@@ -67,7 +67,7 @@ const Home: React.FC<InputComponentProps> = ({ onSubmit }) => {
           <p>
             Enter your{" "}
             <img
-              src="/src/assets/flash.svg"
+              src={flashLogo}
               alt="Logo"
               width="40"
               height="30"

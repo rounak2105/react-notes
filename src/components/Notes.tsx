@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
 import { createPost, fetchPosts, lockNote, unlockNote, deleteNote } from "./Communication";
+import flashLogo from "./assets/flash.svg"
+import deleteLogo from "./assets/delete.svg"
+import lockLogo from "./assets/lock.svg"
+
 
 const Notes = (props: any) => {
   const [inputValue, setInputValue] = useState("");
@@ -129,7 +133,7 @@ const Notes = (props: any) => {
             style={{ cursor: "pointer" }}
           >
             <img
-              src="/src/assets/delete.svg"
+              src={deleteLogo}
               alt="Delete"
               width="30"
               height="24"
@@ -142,7 +146,7 @@ const Notes = (props: any) => {
         ) : (
           <div onClick={handleLockClick} style={{ cursor: "pointer" }}>
             <img
-              src="/src/assets/lock.svg"
+              src={lockLogo}
               alt="Lock"
               width="40"
               height="30"
@@ -172,7 +176,7 @@ const Notes = (props: any) => {
             <div className="d-flex flex-column align-items-center">
               <div className="modal-icon-wrapper mb-3">
                 <img
-                  src="/src/assets/lock.svg"
+                  src={lockLogo}
                   alt="Lock"
                   width="24"
                   height="24"
@@ -258,7 +262,7 @@ const Notes = (props: any) => {
       <div className="top-centered-div4">
         Your
         <img
-          src="/src/assets/flash.svg"
+          src={flashLogo}
           id="flash-icon"
           alt="Logo"
           width="40"

@@ -1,4 +1,5 @@
 import React from "react";
+import flashLogo from "./assets/flash.svg"
 
 type NavBarProps = {
   onBrandClick: () => void;
@@ -12,7 +13,7 @@ export const NavBar: React.FC<NavBarProps> = ({ onBrandClick, onNavigate }) => {
         <div className="container-fluid">
           <a className="navbar-brand" href="#" onClick={onBrandClick}>
             <img
-              src="/src/assets/flash.svg"
+              src={flashLogo}
               alt="Logo"
               width="30"
               height="24"

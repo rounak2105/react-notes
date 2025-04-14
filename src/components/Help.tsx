@@ -1,5 +1,6 @@
 import type React from "react"
 import Footer from "./Footer"
+import flashLogo from "./assets/flash.svg"
 
 const Help: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Help: React.FC = () => {
           {/* Header */}
           <div className="text-center mb-5">
             <img
-              src="/src/assets/flash.svg"
+              src={flashLogo}
               alt="Logo"
               width="40"
               height="30"
