@@ -1,28 +1,34 @@
 import { useState } from "react";
 import Home from "./components/Home";
 import { NavBar } from "./components/NavBar";
-import Quote from "./components/Quote";
 import Notes from "./components/Notes";
+import AboutUs from "./components/AboutUs";
+import Help from "./components/Help";
+import Footer from "./components/Footer";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
-  const [showComponent, setShowComponent] = useState(false);
+  const [currentPage, setCurrentPage] = useState("home");
 
   const handleSubmit = (value: any) => {
     setInputValue(value);
-    setShowComponent(true); // Show component based on input
+    setCurrentPage("notes");
   };
 
-  const handleNavBarClick = () => {
-    console.log("YUESSSS");
-    setShowComponent(false);
+  const handleNavigation = (page: string) => {
+    setCurrentPage(page);
   };
 
   return (
-    <div>
-      <NavBar onBrandClick={handleNavBarClick}></NavBar>
-      {!showComponent && <Home onSubmit={handleSubmit}></Home>}
-      {showComponent && <Notes value={inputValue}></Notes>}
+    <div className="d-flex flex-column min-vh-100">
+      <NavBar onBrandClick={() => handleNavigation("home")} onNavigate={handleNavigation} />
+      <div className="flex-grow-1">
+        {currentPage === "home" && <Home onSubmit={handleSubmit} />}
+        {currentPage === "notes" && <Notes value={inputValue} />}
+        {currentPage === "about" && <AboutUs />}
+        {currentPage === "help" && <Help />}
+      </div>
+      <Footer />
     </div>
   );
 }

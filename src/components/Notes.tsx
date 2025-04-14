@@ -1,42 +1,31 @@
 import React, { useEffect, useState } from "react";
 import List from "./List";
 import { createPost, fetchPosts } from "./Communication";
+
 const Notes = (props: any) => {
   const [inputValue, setInputValue] = useState("");
   const handleChange = (e: any) => {
     setInputValue(e.target.value);
   };
 
-  var notesList : Array<{ _id: string; uid: string; note: string }>;
-  notesList = []
-  //console.log("calling fetch posts");
-  //var notes = fetchPosts(props.value);
-  //console.log(notes);
+  // Initialize empty notes list
+  var initialNotes: Array<{ _id: string; uid: string; note: string }> = [];
+  const [notesList, setNotesList] = useState(initialNotes);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const postData: typeof notesList = await fetchPosts(props.value);
-        console.log(postData);
-        console.log("1 " + notesList.length);
-        setNotesList((notesList) => [...notesList, ...postData]);
-        console.log("2 " + notesList.length);
+        const postData = await fetchPosts(props.value);
+        setNotesList((notes) => [...notes, ...postData]);
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle error state here if needed
-      } finally {
       }
     };
 
     fetchData();
   }, [props.value]);
 
-  // State to manage notes list
-  var [notesList, setNotesList] = useState(notesList);
-
-  // Function to add a new item to notes list
   const addItemToList = () => {
-    console.log(notesList);
     const newItem = {
       _id: notesList.length + 1 + "",
       uid: props.value,
@@ -54,19 +43,33 @@ const Notes = (props: any) => {
       setTimeout(() => {
         icon.style.transition = "";
         icon.style.transform = "";
-      }, 500); // Reset after animation duration (0.5s in this case)
+      }, 500);
     }
     try {
       const postData = await fetchPosts(props.value);
-      setNotesList(postData); // Update notes list with fetched data
+      setNotesList(postData);
     } catch (error) {
       console.error("Error fetching data:", error);
-      // Handle error state here if needed
     }
   };
 
   return (
     <div>
+      {/* New Lock Section at top center */}
+      <div className="lock-top text-center mb-3">
+        <img
+          src="/src/assets/lock.svg"
+          alt="Lock"
+          width="40"
+          height="30"
+          className="d-inline-block align-text-top"
+        />
+        <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey" }}>
+          Lock the Note!
+        </p>
+      </div>
+
+      {/* Existing Header Section (unchanged) */}
       <div className="top-centered-div4">
         Your
         <img
@@ -82,18 +85,9 @@ const Notes = (props: any) => {
         <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey" }}>
           To refresh, click the flash icon!
         </p>
-        <img
-          src="/src/assets/lock.svg"
-          id="flash-icon"
-          alt="Logo"
-          width="40"
-          height="30"
-          className="d-inline-block align-text-top"
-        ></img>
-        <p style={{ fontWeight: "light", fontSize: "smaller", color: "grey" }}>
-          Lock the Note!
-        </p>
       </div>
+
+      {/* Notes Input Section */}
       <div className="mb-3 top-centered-div3">
         <div className="input-group">
           <textarea
