@@ -17,7 +17,7 @@ const Help: React.FC = () => {
               className="mb-3"
             />
             <h2 className="display-6 mb-2">Help Center</h2>
-            <p className="text-muted">Find answers to common questions about FlashNotes</p>
+            <p className="text-muted">Find answers to common questions about FlashNotes!</p>
           </div>
 
           {/* FAQ Accordion */}
@@ -130,11 +130,11 @@ const Help: React.FC = () => {
               <div id="collapseFive" className="accordion-collapse collapse" data-bs-parent="#helpAccordion">
                 <div className="accordion-body">
                   <ol className="ps-4">
-                    <li className="mb-2">Find the note you want to delete in your list</li>
+                    <li className="mb-2">Find the note you want to delete</li>
                     <li className="mb-2">Click on the delete icon (trash can) on the top of the note</li>
                     <li className="mb-2">The note will be removed forever</li>
                   </ol>
-                  <p className="text-muted mt-3">
+                  <p style={{ color: "red" }}>
                     <em>Note: Deletion is permanent and cannot be undone.</em>
                   </p>
                 </div>

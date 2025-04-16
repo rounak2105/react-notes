@@ -17,7 +17,8 @@ const AboutUs: React.FC = () => {
               height="30"
               className="mb-3"
             />
-            <h1 className="navbar-brand h1 mb-0">FlashNotes</h1>
+            <h2 className="display-6 mb-2">FlashNotes</h2>
+            <p className="text-muted">Keep your notes quick and shareable with FlashNotes!</p>
           </div>
 
           {/* Main Content */}
