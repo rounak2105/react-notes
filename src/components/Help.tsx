@@ -14,7 +14,7 @@ const Help: React.FC = () => {
               alt="Logo"
               width="40"
               height="30"
-              className="mb-3 opacity-75"
+              className="mb-3"
             />
             <h2 className="display-6 mb-2">Help Center</h2>
             <p className="text-muted">Find answers to common questions about FlashNotes</p>
@@ -109,7 +109,7 @@ const Help: React.FC = () => {
                 <div className="accordion-body">
                   <p>
                     The "Lock the Note" feature (indicated by the lock icon) allows you to protect your notes from
-                    unauthorized access. This feature is coming soon in a future update.
+                    unauthorized access.
                   </p>
                 </div>
               </div>
@@ -131,8 +131,8 @@ const Help: React.FC = () => {
                 <div className="accordion-body">
                   <ol className="ps-4">
                     <li className="mb-2">Find the note you want to delete in your list</li>
-                    <li className="mb-2">Click on the delete icon (trash can) on the right side of the note</li>
-                    <li className="mb-2">The note will be removed from your list</li>
+                    <li className="mb-2">Click on the delete icon (trash can) on the top of the note</li>
+                    <li className="mb-2">The note will be removed forever</li>
                   </ol>
                   <p className="text-muted mt-3">
                     <em>Note: Deletion is permanent and cannot be undone.</em>
@@ -146,8 +146,8 @@ const Help: React.FC = () => {
           <div className="mt-5 text-center py-4 border-top">
             <p className="text-muted mb-0">
               Need more help? Contact us at{" "}
-              <a href="mailto:support@flashnotes.com" className="text-primary fw-medium text-decoration-none">
-                support@flashnotes.com
+              <a href="mailto:hello@flashnotes.xyz" className="text-primary fw-medium text-decoration-none">
+                hello@flashnotes.xyz
               </a>
             </p>
           </div>

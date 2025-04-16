@@ -222,7 +222,7 @@ const Notes = (props: any) => {
             <div className="d-flex flex-column align-items-center">
               <div className="modal-icon-wrapper mb-3">
                 <img
-                  src="/src/assets/lock.svg"
+                  src={lockLogo}
                   alt="Lock"
                   width="24"
                   height="24"
