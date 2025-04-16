@@ -146,8 +146,8 @@ const Help: React.FC = () => {
           <div className="mt-5 text-center py-4 border-top">
             <p className="text-muted mb-0">
               Need more help? Contact us at{" "}
-              <a href="mailto:hello@flashnotes.xyz" className="text-primary fw-medium text-decoration-none">
-                hello@flashnotes.xyz
+              <a href="mailto:hello@flashnotes.site" className="text-primary fw-medium text-decoration-none">
+                hello@flashnotes.site
               </a>
             </p>
           </div>
