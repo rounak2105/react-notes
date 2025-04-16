@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const BASE_URL = "https://notes-app-flash.onrender.com";
+const BASE_URL = "https://notesapp-elbh.onrender.com";
 
 export async function fetchPosts(id: number) {
   try {
